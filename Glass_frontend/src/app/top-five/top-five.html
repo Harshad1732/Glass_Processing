@@ -1,0 +1,112 @@
+<div class="topfive-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="topfive-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="topfive-header">
+      <div class="left-area">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+        <h1>Top Five Data</h1>
+      </div>
+      <div class="right-area">
+        <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+        <button class="btn-plant">{{ branchName }}</button>
+      </div>
+    </header>
+
+    <section class="topfive-body">
+      <button class="btn-print">
+        <lucide-icon name="printer" size="16"></lucide-icon>
+        Print
+      </button>
+
+      <section class="data-block">
+        <h2>WTR</h2>
+        <div class="table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>SO Date</th>
+                <th>BPlant</th>
+                <th>CR No</th>
+                <th>Party Name</th>
+                <th>Qty</th>
+                <th>SQM</th>
+                <th>CSQM</th>
+                <th>RBD</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if (wtrRows.length === 0) {
+                <tr><td colspan="8" class="empty-row">No data</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="data-block">
+        <h2>OSF</h2>
+        <div class="table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>SO Date</th>
+                <th>BPlant</th>
+                <th>CR No</th>
+                <th>Party Name</th>
+                <th>Qty</th>
+                <th>SQM</th>
+                <th>CSQM</th>
+                <th>RBD</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of osfRows; track row.crNo) {
+                <tr>
+                  <td>{{ row.soDate }}</td>
+                  <td>{{ row.plant }}</td>
+                  <td>{{ row.crNo }}</td>
+                  <td>{{ row.partyName }}</td>
+                  <td>{{ row.qty }}</td>
+                  <td>{{ row.sqm }}</td>
+                  <td>{{ row.csqm }}</td>
+                  <td>{{ row.rbd }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="data-block">
+        <h2>RTD</h2>
+        <div class="table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>SO Date</th>
+                <th>BPlant</th>
+                <th>CR No</th>
+                <th>Party Name</th>
+                <th>Qty</th>
+                <th>SQM</th>
+                <th>CSQM</th>
+                <th>RBD</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if (rtdRows.length === 0) {
+                <tr><td colspan="8" class="empty-row">No data</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+

@@ -1,0 +1,57 @@
+<div class="dashboard-container" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="dashboard-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="dashboard-header">
+      <div class="header-title">
+        <button
+          class="btn-sidebar-toggle icon-button"
+          (click)="toggleSidebar()"
+          [attr.aria-label]="isSidebarCollapsed ? 'Show sidebar' : 'Hide sidebar'"
+          [attr.title]="isSidebarCollapsed ? 'Show sidebar' : 'Hide sidebar'"
+        >
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18" strokeWidth="1.75"></lucide-icon>
+        </button>
+        <div class="title-block">
+          <h1>Dashboard</h1>
+          <span class="branch-pill">
+            <lucide-icon name="factory" size="14" strokeWidth="1.75"></lucide-icon>
+            {{ branchName }} Plant
+          </span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button
+          class="btn-theme-toggle icon-button"
+          (click)="toggleTheme()"
+          [attr.aria-label]="isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'"
+          [attr.title]="isDarkTheme ? 'Light theme' : 'Dark theme'"
+        >
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18" strokeWidth="1.75"></lucide-icon>
+        </button>
+        <button class="btn-plant" (click)="toggleBranch()">
+          Plant: {{ branchName }}
+        </button>
+        <button class="btn-logout">Logout</button>
+      </div>
+    </header>
+
+    <div class="dashboard-body">
+      @for (section of sections; track $index) {
+        <section class="work-section" [class.other-section]="section.title === 'Other'">
+          <h2 class="section-title">{{ section.title }}</h2>
+          <div class="items-grid">
+            @for (item of section.items; track $index) {
+              <button class="work-item" [style.border-color]="item.color" (click)="onWorkItemClick(item)">
+                @if (item.iconName) {
+                  <lucide-icon [name]="item.iconName" size="20" strokeWidth="1.5"></lucide-icon>
+                }
+                <span class="item-label">{{ item.label }}</span>
+              </button>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  </main>
+</div>

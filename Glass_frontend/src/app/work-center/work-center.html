@@ -1,0 +1,149 @@
+<div class="wc-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="wc-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="wc-topbar">
+      <div class="wc-topbar-title">
+        <button
+          class="icon-button btn-sidebar-toggle"
+          (click)="toggleSidebar()"
+          [attr.aria-label]="isSidebarCollapsed ? 'Show sidebar' : 'Hide sidebar'"
+          [attr.title]="isSidebarCollapsed ? 'Show sidebar' : 'Hide sidebar'"
+        >
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+        <h1>Work Center - {{ pageTitle }}</h1>
+      </div>
+
+      <div class="wc-topbar-actions">
+        <button
+          class="icon-button btn-theme-toggle"
+          (click)="toggleTheme()"
+          [attr.aria-label]="isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'"
+          [attr.title]="isDarkTheme ? 'Light theme' : 'Dark theme'"
+        >
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+      </div>
+    </header>
+
+    <div class="wc-toolbar">
+      <div class="wc-actions">
+        <button class="btn btn-back" (click)="goBack()">
+          <lucide-icon name="arrow-left" size="16"></lucide-icon>
+          Back
+        </button>
+        @if (showHoldButton) {
+          <button class="btn btn-hold">Hold Selected</button>
+        }
+        <button class="btn btn-replace">Replace Selected</button>
+        @if (isWc5) {
+          <button class="btn btn-process">WC5 Batch</button>
+        } @else {
+          <button class="btn btn-process">Process</button>
+        }
+        @if (showRevertToWtr) {
+          <button class="btn btn-revert">Revert To WTR</button>
+        }
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="wc-table">
+        <thead>
+          <tr>
+            <th class="col-cr">CR No</th>
+            <th class="col-sr">Sr No</th>
+            <th class="col-party">Party</th>
+            <th>SO Date</th>
+            <th>Size</th>
+            <th>Thickness</th>
+            <th>CS QM</th>
+            <th>RBD</th>
+            <th>Order Qty</th>
+            <th>Qty</th>
+            <th>Process Qty</th>
+            <th>Process</th>
+            <th>TN</th>
+          </tr>
+          <tr class="search-row">
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="calendar" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="calendar" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @if (groups.length === 0) {
+            <tr class="empty-row">
+              <td colspan="13">No rows loaded. Tree list structure is ready.</td>
+            </tr>
+          }
+
+          @for (group of groups; track group.id) {
+            <tr class="group-row">
+              <td>
+                <button class="tree-toggle" (click)="toggleGroup(group.id)">
+                  <lucide-icon [name]="isExpanded(group.id) ? 'chevron-down' : 'chevron-right'" size="14"></lucide-icon>
+                </button>
+                <span class="cr-no">{{ group.crNo }}</span>
+              </td>
+              <td></td>
+              <td class="group-party">{{ group.party }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="process-col">{{ groupProcessQty(group) }}</td>
+              <td></td>
+              <td class="tn-col">0</td>
+            </tr>
+
+            @if (isExpanded(group.id)) {
+              @for (line of group.lines; track line.id) {
+                <tr class="line-row">
+                  <td class="cr-cell">
+                    <input
+                      #lineSelection
+                      type="checkbox"
+                      (change)="toggleLine(line.id, lineSelection.checked)"
+                      [checked]="selectedLines()[line.id] === true"
+                    />
+                    {{ group.crNo }}
+                  </td>
+                  <td>{{ line.srNo }}</td>
+                  <td>{{ line.party }}</td>
+                  <td>{{ line.soDate }}</td>
+                  <td>{{ line.size }}</td>
+                  <td>{{ line.thickness }}</td>
+                  <td>{{ line.csqm }}</td>
+                  <td>{{ line.rbd }}</td>
+                  <td>{{ line.orderQty }}</td>
+                  <td>{{ line.qty }}</td>
+                  <td class="process-col">{{ line.processQty }}</td>
+                  <td>{{ line.process }}</td>
+                  <td class="tn-col">{{ line.tn }}</td>
+                </tr>
+              }
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="wc-footer">Selected rows: {{ selectedCount() }}</footer>
+  </main>
+</div>

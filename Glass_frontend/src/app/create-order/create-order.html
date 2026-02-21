@@ -1,0 +1,172 @@
+<div class="page-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+  <main class="page-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+        
+      </div>
+      <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+        <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+      </button>
+    </header>
+
+    <section class="co-page">
+      <header class="co-titlebar">
+        <div class="left">
+          <button class="btn-back" (click)="goBack()">
+            <lucide-icon name="arrow-left" size="16"></lucide-icon>
+            Back
+          </button>
+        </div>
+        
+        <div class="right"></div>
+      </header>
+
+      <form class="co-form-card" [formGroup]="form">
+        <div class="row row-4">
+          <label>
+            <span>Entry Code</span>
+            <input type="text" formControlName="entryCode" />
+          </label>
+          <label>
+            <span>BP Code</span>
+            <input type="text" formControlName="bpCode" />
+          </label>
+          <label>
+            <span>Plant</span>
+            <select formControlName="plant">
+              <option value="">Select</option>
+              @for (option of plantOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            <span>Party Name</span>
+            <input type="text" formControlName="partyName" />
+          </label>
+        </div>
+
+        <div class="row row-5">
+          <label>
+            <span>SO Date</span>
+            <div class="input-with-icon">
+              <input type="date" formControlName="soDate" />
+              <lucide-icon name="calendar" size="16"></lucide-icon>
+            </div>
+          </label>
+          <label>
+            <span>Cr No.</span>
+            <input type="text" formControlName="crNo" />
+          </label>
+          <label>
+            <span>Required By Dt.</span>
+            <div class="input-with-icon">
+              <input type="date" formControlName="requiredBy" />
+              <lucide-icon name="calendar" size="16"></lucide-icon>
+            </div>
+          </label>
+          <label>
+            <span>Pl Dt.</span>
+            <div class="input-with-icon">
+              <input type="date" formControlName="plDate" />
+              <lucide-icon name="calendar" size="16"></lucide-icon>
+            </div>
+          </label>
+          <label class="checkbox-wrap">
+            <input type="checkbox" formControlName="isExpress" />
+            <span>Is Express</span>
+          </label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row row-4">
+          <label>
+            <span>Sr No.</span>
+            <input type="text" formControlName="srNo" />
+          </label>
+          <label>
+            <span>Qty</span>
+            <input type="number" formControlName="qty" />
+          </label>
+          <label>
+            <span>Process</span>
+            <select formControlName="process">
+              <option value="">Select</option>
+              @for (option of processOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            <span>Note</span>
+            <select formControlName="note">
+              <option value="">Select</option>
+              <option value="Urgent">Urgent</option>
+              <option value="Fragile">Fragile</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row row-7">
+          <label>
+            <span>Thickness</span>
+            <select formControlName="thickness">
+              <option value="">Select</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+            </select>
+          </label>
+
+          <label class="size-group">
+            <span>Size</span>
+            <div class="size-fields">
+              <input type="number" formControlName="sizeW" placeholder="Width" />
+              <span class="x-sign">x</span>
+              <input type="number" formControlName="sizeH" placeholder="Height" />
+            </div>
+          </label>
+
+          <label>
+            <span>Logo</span>
+            <select formControlName="logo">
+              <option value="">Select</option>
+              @for (option of logoOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            <span>Type</span>
+            <select formControlName="type">
+              <option value="">Select</option>
+              @for (option of typeOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            <span>Item No.</span>
+            <input type="text" formControlName="itemNo" />
+          </label>
+          <label>
+            <span>Part Name</span>
+            <input type="text" formControlName="partName" />
+          </label>
+          <button type="button" class="btn-add" (click)="addItem()">ADD</button>
+        </div>
+      </form>
+
+      <section class="co-list-placeholder"></section>
+    </section>
+  </main>
+</div>
+

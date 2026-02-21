@@ -1,0 +1,114 @@
+<div class="register-page">
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+
+  <section class="register-shell">
+    <div class="register-box">
+      <div class="title-wrap">
+        <h2>Create Your Account</h2>
+      </div>
+
+      @if (registrationSuccess()) {
+        <div class="success-message">
+          Registration successful! You can now login with your email.
+        </div>
+      }
+
+      @if (registrationError()) {
+        <div class="error-message">
+          {{ registrationError() }}
+        </div>
+      }
+
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" novalidate>
+        <div class="name-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              formControlName="firstName"
+              placeholder="John"
+              required
+            />
+            @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
+              <small class="error">First name is required and must be at least 2 characters</small>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              class="form-control"
+              formControlName="lastName"
+              placeholder="Doe"
+              required
+            />
+            @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
+              <small class="error">Last name is required and must be at least 2 characters</small>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="name@company.com"
+            required
+          />
+          @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+            <small class="error">Please enter a valid email address</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Minimum 6 characters"
+            required
+          />
+          @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+            <small class="error">Password must be at least 6 characters</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-control"
+            formControlName="confirmPassword"
+            placeholder="Re-enter password"
+            required
+          />
+          @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
+            <small class="error">Please confirm your password</small>
+          }
+          @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
+            <small class="error">Passwords do not match</small>
+          }
+        </div>
+
+        <button type="submit" class="btn-register" [disabled]="registerForm.invalid">
+          Create Account
+        </button>
+      </form>
+
+      <div class="login-link">
+        <button type="button" class="text-link" (click)="navigateToLogin()">Already have an account? Login</button>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body.theme-dark {
+  background-color: #0f1419;
+  color: #e5e7eb;
+}
+
+body.theme-light {
+  background-color: #f6f9fc;
+  color: #1f2937;
+}
+
+/* Global title-bar scale: reduce height and title font across app screens */
+.dashboard-header,
+.wc-topbar,
+.settings-header,
+.topfive-header,
+.page-topbar,
+.co-titlebar,
+.po-titlebar,
+.rtd-titlebar,
+.dr-titlebar,
+.hl-titlebar,
+.rr-titlebar {
+  min-height: 56px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.title-block h1,
+.wc-topbar-title h1,
+.settings-header h1,
+.topfive-header h1,
+.co-titlebar h1,
+.po-titlebar h1,
+.rtd-titlebar h1,
+.dr-titlebar h1,
+.hl-titlebar h1,
+.rr-titlebar h1,
+.data-block h2 {
+  font-size: clamp(1.18rem, 1.65vw, 1.9rem) !important;
+  line-height: 1.2 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header,
+  .wc-topbar,
+  .settings-header,
+  .topfive-header,
+  .page-topbar,
+  .co-titlebar,
+  .po-titlebar,
+  .rtd-titlebar,
+  .dr-titlebar,
+  .hl-titlebar,
+  .rr-titlebar {
+    min-height: 48px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .title-block h1,
+  .wc-topbar-title h1,
+  .settings-header h1,
+  .topfive-header h1,
+  .co-titlebar h1,
+  .po-titlebar h1,
+  .rtd-titlebar h1,
+  .dr-titlebar h1,
+  .hl-titlebar h1,
+  .rr-titlebar h1,
+  .data-block h2 {
+    font-size: clamp(1.05rem, 4.2vw, 1.45rem) !important;
+  }
+}

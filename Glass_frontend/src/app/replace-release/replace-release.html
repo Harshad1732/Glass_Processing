@@ -1,0 +1,73 @@
+<div class="page-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+  <main class="page-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+        
+      </div>
+      <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+        <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+      </button>
+    </header>
+
+    <section class="rr-page">
+      <div class="rr-actions">
+    <button class="btn btn-back" (click)="goBack()">
+      <lucide-icon name="arrow-left" size="16"></lucide-icon>
+      Back
+    </button>
+    <button class="btn btn-release">Release</button>
+      </div>
+
+      <div class="rr-table-wrap">
+    <table class="rr-table">
+      <thead>
+        <tr>
+          <th>Party</th>
+          <th>Reason</th>
+          <th>CR No</th>
+          <th>Size</th>
+          <th>Replaced On</th>
+          <th>RBD</th>
+          <th>Qty</th>
+          <th>Process Qty</th>
+          <th>Work Center</th>
+          <th>Thickness</th>
+        </tr>
+        <tr class="search-row">
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th>
+            <span class="icon-pair">
+              <lucide-icon name="search" size="14"></lucide-icon>
+              <lucide-icon name="calendar" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th>
+            <span class="icon-pair">
+              <lucide-icon name="search" size="14"></lucide-icon>
+              <lucide-icon name="calendar" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="no-data-row">
+          <td colspan="10">No data</td>
+        </tr>
+      </tbody>
+    </table>
+      </div>
+    </section>
+  </main>
+</div>
+

@@ -1,0 +1,39 @@
+<aside class="sidebar" [class.collapsed]="collapsed" [class.light-theme]="lightTheme">
+  <div class="sidebar-header">
+    <div class="logo">
+      <lucide-icon name="building-2" size="24"></lucide-icon>
+      <span class="logo-text">Glass</span>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    @for (item of menuItems; track $index) {
+      <div class="menu-item">
+        <button
+          class="menu-button"
+          [class.has-submenu]="item.submenu"
+          (click)="onMenuClick(item)"
+        >
+          <lucide-icon [name]="item.iconName" size="16" class="menu-icon" strokeWidth="1.5"></lucide-icon>
+          <span class="menu-label">{{ item.label }}</span>
+          @if (item.submenu && !collapsed) {
+            <span class="expand-icon" [class.expanded]="expandedMenu === item.label">
+              &#9656;
+            </span>
+          }
+        </button>
+
+        @if (item.submenu && expandedMenu === item.label && !collapsed) {
+          <div class="submenu">
+            @for (subitem of item.submenu; track $index) {
+              <a href="#" class="submenu-item" (click)="onSubmenuClick(subitem, $event)">
+                <lucide-icon [name]="subitem.iconName" size="14" class="submenu-icon" strokeWidth="1.5"></lucide-icon>
+                <span class="submenu-label">{{ subitem.label }}</span>
+              </a>
+            }
+          </div>
+        }
+      </div>
+    }
+  </nav>
+</aside>

@@ -1,0 +1,116 @@
+<div class="page-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+  <main class="page-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+        
+      </div>
+      <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+        <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+      </button>
+    </header>
+
+    <section class="dr-page">
+      <div class="dr-top-controls">
+    <button class="btn btn-back" (click)="goBack()">
+      <lucide-icon name="arrow-left" size="16"></lucide-icon>
+      Back
+    </button>
+      </div>
+
+      <div class="dr-filter">
+    <div class="filter-row">
+      <span class="label">Filter By:</span>
+      <label><input type="radio" name="filterBy" checked /> Date</label>
+      <label><input type="radio" name="filterBy" /> Customer</label>
+    </div>
+
+    <div class="filter-row">
+      <span class="label">Select Date:</span>
+      <div class="input-field with-icon">
+        <span></span>
+        <lucide-icon name="calendar" size="16"></lucide-icon>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <span class="label">Select Customer:</span>
+      <div class="input-field with-icon">
+        <span class="placeholder">Select...</span>
+        <lucide-icon name="chevron-down" size="16"></lucide-icon>
+      </div>
+    </div>
+      </div>
+
+      <div class="dr-actions">
+    <button class="btn btn-fetch">Fetch ...</button>
+    <button class="btn btn-export">Export</button>
+      </div>
+
+      <div class="dr-table-wrap">
+    <div class="dr-search-row">
+      <div class="search-box">
+        <lucide-icon name="search" size="16"></lucide-icon>
+        <input type="text" placeholder="Search..." />
+      </div>
+    </div>
+
+    <table class="dr-table">
+      <thead>
+        <tr>
+          <th>CR No</th>
+          <th>Customer</th>
+          <th>OID</th>
+          <th>Sr No</th>
+          <th>Qty</th>
+          <th>Delivered Qty</th>
+          <th>Timestamp</th>
+          <th>Plant</th>
+          <th>Process</th>
+          <th>Logo</th>
+          <th>Size (W)</th>
+          <th>Size (H)</th>
+          <th>Thickness</th>
+          <th>RBD Date</th>
+        </tr>
+        <tr class="search-icons-row">
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th>
+            <span class="icon-pair">
+              <lucide-icon name="search" size="14"></lucide-icon>
+              <lucide-icon name="calendar" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th><lucide-icon name="search" size="14"></lucide-icon></th>
+          <th>
+            <span class="icon-pair">
+              <lucide-icon name="search" size="14"></lucide-icon>
+              <lucide-icon name="calendar" size="14"></lucide-icon>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="no-data-row">
+          <td colspan="14">No data</td>
+        </tr>
+      </tbody>
+    </table>
+      </div>
+    </section>
+  </main>
+</div>
+

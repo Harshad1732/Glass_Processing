@@ -1,0 +1,88 @@
+<div class="batch-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="batch-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+        <button class="btn-plant">{{ branchName }}</button>
+      </div>
+    </header>
+
+    <section class="batch-page">
+      <div class="batch-titlebar">
+        <h1>BatchesList</h1>
+      </div>
+
+      <div class="batch-toolbar">
+        <label class="date-filter">
+          <span>From Date:</span>
+          <div class="date-input">
+            <input type="text" value="21 Feb 2026" />
+            <lucide-icon name="calendar" size="16"></lucide-icon>
+          </div>
+        </label>
+
+        <label class="date-filter">
+          <span>To Date:</span>
+          <div class="date-input">
+            <input type="text" value="22 Feb 2026" />
+            <lucide-icon name="calendar" size="16"></lucide-icon>
+          </div>
+        </label>
+
+        <button class="btn btn-fetch">Fetch</button>
+        <button class="btn btn-export">
+          <lucide-icon name="file-output" size="16"></lucide-icon>
+          Export
+        </button>
+      </div>
+
+      <div class="grid-toolbar">
+        <div class="search-box">
+          <lucide-icon name="search" size="16"></lucide-icon>
+          <input type="text" placeholder="Search..." />
+        </div>
+      </div>
+
+      <div class="batch-grid-wrap">
+        <table class="batch-grid">
+          <thead>
+            <tr>
+              <th>Batch Date</th>
+              <th>Batch Number</th>
+              <th>Plant</th>
+              <th>CR No</th>
+              <th>Size (W x H)</th>
+              <th>SQM</th>
+              <th>CSQM</th>
+              <th>Quantity</th>
+            </tr>
+            <tr class="search-row">
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="no-data-row">
+              <td colspan="8">No data</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

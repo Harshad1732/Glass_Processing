@@ -1,0 +1,219 @@
+<div class="settings-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="settings-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="settings-header">
+      <div class="left-area">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+        <h1>Settings</h1>
+      </div>
+      <div class="right-area">
+        <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+        <button class="btn-plant" (click)="toggleBranch()">{{ branchName }}</button>
+      </div>
+    </header>
+
+    <section class="settings-body">
+      <div class="top-row">
+        <div class="tabs">
+          <button class="tab" [class.active]="activeTab() === 'User Profile'" (click)="selectTab('User Profile')">User Profile</button>
+          <button class="tab" [class.active]="activeTab() === 'Customers'" (click)="selectTab('Customers')">Customers</button>
+          <button class="tab" [class.active]="activeTab() === 'WorkCenters'" (click)="selectTab('WorkCenters')">WorkCenters</button>
+          <button class="tab" [class.active]="activeTab() === 'Process Definition'" (click)="selectTab('Process Definition')">Process Definition</button>
+        </div>
+
+        <div class="controls">
+          <input
+            class="search-box"
+            [placeholder]="activeTab() === 'Customers' ? 'Search CRNO(Enter complete)' : 'Search user/email'"
+            [value]="searchValue()"
+            (input)="setSearch($any($event.target).value)"
+          />
+        </div>
+      </div>
+
+      @if (activeTab() === 'User Profile') {
+        <div class="toolbar">
+          <button class="btn-add" (click)="goRegister()">ADD USER PROFILE</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="settings-table">
+            <thead>
+              <tr>
+                <th class="icon-col"></th>
+                <th>User Name / email</th>
+                <th>Password</th>
+                <th>Plant</th>
+                <th>Status</th>
+                <th>Role</th>
+                @for (wc of ['WC1', 'WC2', 'WC3', 'WC4', 'WC5', 'WC6', 'WC7', 'WC8', 'WC9']; track wc) {
+                  <th>{{ wc }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of filteredRows(); track row.id) {
+                <tr>
+                  <td class="icon-col">
+                    <button class="row-icon btn-delete" aria-label="Delete"><lucide-icon name="trash-2" size="15"></lucide-icon></button>
+                    <button class="row-icon btn-copy" aria-label="Copy"><lucide-icon name="copy" size="15"></lucide-icon></button>
+                  </td>
+                  <td>
+                    <div class="user-name">{{ row.displayName }}</div>
+                    <div class="login-id">Login ID: {{ row.loginId }}</div>
+                  </td>
+                  <td class="mono">{{ row.passwordMask }}</td>
+                  <td>{{ row.plant }}</td>
+                  <td>{{ row.status }}</td>
+                  <td>{{ row.role }}</td>
+                  @for (allowed of row.wcAccess; track $index) {
+                    <td class="wc-cell">
+                      @if (allowed) {
+                        <lucide-icon name="check" size="16" class="ok"></lucide-icon>
+                      } @else {
+                        <lucide-icon name="x" size="16" class="no"></lucide-icon>
+                      }
+                    </td>
+                  }
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="15" class="empty-row">No users found.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      @if (activeTab() === 'Customers') {
+        <div class="customer-filters">
+          <input class="filter-input" placeholder="Code" [value]="customerFilters().code" (input)="setCustomerFilter('code', $any($event.target).value)" />
+          <input class="filter-input" placeholder="Customer Name" [value]="customerFilters().customerName" (input)="setCustomerFilter('customerName', $any($event.target).value)" />
+          <input class="filter-input wide" placeholder="Street Address" [value]="customerFilters().streetAddress" (input)="setCustomerFilter('streetAddress', $any($event.target).value)" />
+          <input class="filter-input" placeholder="State" [value]="customerFilters().state" (input)="setCustomerFilter('state', $any($event.target).value)" />
+          <input class="filter-input" placeholder="City" [value]="customerFilters().city" (input)="setCustomerFilter('city', $any($event.target).value)" />
+          <input class="filter-input" placeholder="PinCode" [value]="customerFilters().pin" (input)="setCustomerFilter('pin', $any($event.target).value)" />
+          <button class="btn-add customer-add">ADD CUSTOMER</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="settings-table customers-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cust Code</th>
+                <th>Customer Name</th>
+                <th>Street Address</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Pin</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of filteredCustomers(); track c.id) {
+                <tr>
+                  <td>{{ c.id }}</td>
+                  <td>{{ c.custCode }}</td>
+                  <td>{{ c.customerName }}</td>
+                  <td>{{ c.streetAddress }}</td>
+                  <td>{{ c.state }}</td>
+                  <td>{{ c.city }}</td>
+                  <td>{{ c.pin }}</td>
+                  <td class="actions-cell">
+                    <button class="link-btn">Edit</button>
+                    <span class="sep">|</span>
+                    <button class="link-btn danger">Delete</button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="8" class="empty-row">No customers found.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      @if (activeTab() === 'WorkCenters') {
+        <div class="workcenter-filters">
+          <input class="filter-input" placeholder="WC ID" [value]="workCenterFilters().id" (input)="setWorkCenterFilter('id', $any($event.target).value)" />
+          <input class="filter-input" placeholder="WC Name" [value]="workCenterFilters().name" (input)="setWorkCenterFilter('name', $any($event.target).value)" />
+          <input class="filter-input wide" placeholder="WC Explanation" [value]="workCenterFilters().explanation" (input)="setWorkCenterFilter('explanation', $any($event.target).value)" />
+          <input class="filter-input" placeholder="WC Sr No." [value]="workCenterFilters().srNo" (input)="setWorkCenterFilter('srNo', $any($event.target).value)" />
+          <button class="btn-add customer-add">ADD WORKCENTER</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="settings-table workcenters-table">
+            <thead>
+              <tr>
+                <th>WC ID</th>
+                <th>WC Name</th>
+                <th>WC Explanation</th>
+                <th>WC Sr No.</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (wc of filteredWorkCenters(); track wc.id) {
+                <tr>
+                  <td>{{ wc.id }}</td>
+                  <td>{{ wc.name }}</td>
+                  <td>{{ wc.explanation }}</td>
+                  <td>{{ wc.srNo }}</td>
+                  <td class="actions-cell">
+                    <button class="link-btn">Edit</button>
+                    <span class="sep">|</span>
+                    <button class="link-btn danger">Delete</button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="empty-row">No workcenters found.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      @if (activeTab() === 'Process Definition') {
+        <div class="toolbar">
+          <button class="btn-add">ADD PROCESS</button>
+        </div>
+
+        <div class="process-board">
+          <div class="process-grid">
+            @for (proc of processDefinitions(); track proc.code) {
+              <section class="process-col">
+                <div class="proc-title-row">
+                  <button class="row-icon btn-delete" aria-label="Delete process">
+                    <lucide-icon name="trash-2" size="14"></lucide-icon>
+                  </button>
+                  <span class="proc-code">{{ proc.code }}</span>
+                </div>
+
+                <div class="wc-list">
+                  @for (wc of wcRows(); track wc) {
+                    <button class="wc-chip" [class.enabled]="isProcessWcEnabled(proc, wc)">
+                      <lucide-icon [name]="isProcessWcEnabled(proc, wc) ? 'star' : 'play'" size="14"></lucide-icon>
+                      WC{{ wc }}
+                    </button>
+                  }
+                </div>
+              </section>
+            }
+          </div>
+        </div>
+      }
+    </section>
+  </main>
+</div>

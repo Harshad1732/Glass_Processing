@@ -1,0 +1,111 @@
+<div class="page-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+  <main class="page-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+      </div>
+      <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+        <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+      </button>
+    </header>
+
+    <section class="po-page">
+
+      <div class="po-mode-buttons">
+        <button class="mode-btn">WTR</button>
+        <button class="mode-btn">OSF</button>
+      </div>
+
+      <div class="po-actions">
+        <button class="btn btn-back" (click)="goBack()">
+          <lucide-icon name="arrow-left" size="16"></lucide-icon>
+          Back
+        </button>
+        <button class="btn btn-change-logo">
+          <lucide-icon name="image-plus" size="16"></lucide-icon>
+          Change Logo
+        </button>
+        <button class="btn btn-change-plant">
+          <lucide-icon name="factory" size="16"></lucide-icon>
+          Change Plant
+        </button>
+        <button class="btn btn-delete">
+          <lucide-icon name="trash-2" size="16"></lucide-icon>
+          Delete Selected Order
+        </button>
+        <button class="btn btn-export">
+          <lucide-icon name="file-output" size="16"></lucide-icon>
+          Export Batch List
+        </button>
+      </div>
+
+      <div class="po-grid-wrap">
+    <table class="po-grid">
+      <thead>
+        <tr>
+          <th>SO Date</th>
+          <th>PL No</th>
+          <th>Party Name</th>
+          <th>Qty</th>
+          <th>Sqm</th>
+          <th>Csqm</th>
+          <th>RBD</th>
+        </tr>
+        <tr class="search-row">
+          <th>
+            <span class="search-tools">
+              <lucide-icon name="search" size="14"></lucide-icon>
+              <lucide-icon name="calendar" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th>
+            <span class="search-tools">
+              <lucide-icon name="search" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th>
+            <span class="search-tools">
+              <lucide-icon name="search" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th>
+            <span class="search-tools">
+              <lucide-icon name="search" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th>
+            <span class="search-tools">
+              <lucide-icon name="search" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th>
+            <span class="search-tools">
+              <lucide-icon name="search" size="14"></lucide-icon>
+            </span>
+          </th>
+          <th>
+            <span class="search-tools">
+              <lucide-icon name="search" size="14"></lucide-icon>
+              <lucide-icon name="calendar" size="14"></lucide-icon>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="no-data-row">
+          <td colspan="7">No data</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">Row Count: 0</td>
+        </tr>
+      </tfoot>
+    </table>
+      </div>
+    </section>
+  </main>
+</div>

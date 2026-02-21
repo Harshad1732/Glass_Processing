@@ -1,0 +1,73 @@
+<div class="wtr-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="wtr-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+        <button class="btn-plant">{{ branchName }}</button>
+      </div>
+    </header>
+
+    <section class="wtr-page">
+      <div class="wtr-titlebar">
+        <h1>WTR</h1>
+      </div>
+
+      <div class="wtr-toolbar">
+        <button class="btn btn-print">
+          <lucide-icon name="printer" size="16"></lucide-icon>
+          Print
+        </button>
+        <button class="btn btn-export">
+          <lucide-icon name="file-output" size="16"></lucide-icon>
+          Export WTR Report
+        </button>
+      </div>
+
+      <div class="wtr-grid-wrap">
+        <table class="wtr-grid">
+          <thead>
+            <tr>
+              <th>CrNo</th>
+              <th>SODate</th>
+              <th>Thickness</th>
+              <th>Party Name</th>
+              <th>Qty</th>
+              <th>SQM</th>
+              <th>CSQM</th>
+              <th>Process</th>
+              <th>Logo</th>
+              <th>RBD</th>
+              <th>BPlant</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows; track row.crNo) {
+              <tr>
+                <td>{{ row.crNo }}</td>
+                <td>{{ row.soDate }}</td>
+                <td>{{ row.thickness }}</td>
+                <td>{{ row.partyName }}</td>
+                <td>{{ row.qty }}</td>
+                <td>{{ row.sqm }}</td>
+                <td>{{ row.csqm }}</td>
+                <td>{{ row.process }}</td>
+                <td>{{ row.logo }}</td>
+                <td>{{ row.rbd }}</td>
+                <td>{{ row.bPlant }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
