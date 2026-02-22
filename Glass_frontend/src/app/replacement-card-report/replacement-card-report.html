@@ -1,0 +1,115 @@
+<div class="replacement-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="replacement-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+        <button class="btn-plant">{{ branchName }}</button>
+      </div>
+    </header>
+
+    <section class="replacement-page">
+      <div class="replacement-titlebar">
+        <h1>Replacement Card Report</h1>
+      </div>
+
+      <div class="replacement-filters">
+        <label class="field">
+          <span>From Date</span>
+          <div class="date-input" (click)="openDatePicker(fromDateInput)">
+            <input #fromDateInput type="date" />
+          </div>
+        </label>
+
+        <label class="field">
+          <span>To Date</span>
+          <div class="date-input" (click)="openDatePicker(toDateInput)">
+            <input #toDateInput type="date" />
+          </div>
+        </label>
+
+        <label class="field">
+          <span>Party Name</span>
+          <div class="select-wrap">
+            <select>
+              <option value="">-- Select Customer --</option>
+            </select>
+            <lucide-icon name="chevron-down" size="16"></lucide-icon>
+          </div>
+        </label>
+
+        <label class="field">
+          <span>Branch</span>
+          <div class="select-wrap">
+            <select>
+              <option value="">-- Select Branch --</option>
+              <option>Thane</option>
+              <option>Taloja</option>
+            </select>
+            <lucide-icon name="chevron-down" size="16"></lucide-icon>
+          </div>
+        </label>
+      </div>
+
+      <div class="replacement-actions">
+        <button class="btn btn-search">Search</button>
+        <button class="btn btn-print">Print</button>
+        <button class="btn btn-export">Export</button>
+      </div>
+
+      <div class="replacement-grid-wrap">
+        <table class="replacement-grid">
+          <thead>
+            <tr>
+              <th>CR No</th>
+              <th>SO Date</th>
+              <th>Party Name</th>
+              <th>Thickness</th>
+              <th>Qty</th>
+              <th>SQM</th>
+              <th>CSQM</th>
+              <th>Process</th>
+              <th>RBD</th>
+              <th>Status</th>
+            </tr>
+            <tr class="search-row">
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th>
+                <span class="search-tools">
+                  <lucide-icon name="search" size="14"></lucide-icon>
+                  <lucide-icon name="calendar" size="14"></lucide-icon>
+                </span>
+              </th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+              <th>
+                <span class="search-tools">
+                  <lucide-icon name="search" size="14"></lucide-icon>
+                  <lucide-icon name="calendar" size="14"></lucide-icon>
+                </span>
+              </th>
+              <th><lucide-icon name="search" size="14"></lucide-icon></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="no-data-row">
+              <td colspan="10">No data</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

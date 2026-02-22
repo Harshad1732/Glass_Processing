@@ -31,18 +31,30 @@
       <div class="sales-filters">
         <label class="field">
           <span>CR No:</span>
-          <input type="text" placeholder="Enter CR No" />
+          <input
+            type="text"
+            [value]="crNo"
+            (input)="onCrNoInput($event)"
+            (keydown.enter)="onSearch()"
+            placeholder="Enter CR No"
+          />
         </label>
 
         <label class="field">
           <span>Party Name:</span>
           <div class="select-wrap">
-            <input type="text" placeholder="Select..." />
+            <input
+              type="text"
+              [value]="partyName"
+              (input)="onPartyNameInput($event)"
+              (keydown.enter)="onSearch()"
+              placeholder="Enter Party Name"
+            />
             <lucide-icon name="chevron-down" size="16"></lucide-icon>
           </div>
         </label>
 
-        <button class="btn-search">
+        <button class="btn-search" (click)="onSearch()">
           <lucide-icon name="search" size="16"></lucide-icon>
           Search
         </button>
@@ -96,9 +108,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="no-data-row">
-              <td colspan="12">No data</td>
-            </tr>
+            @if (rows.length) {
+              @for (row of rows; track row.crNo + '-' + (row.soDate ?? '')) {
+                <tr>
+                  <td>{{ formatDate(row.soDate) }}</td>
+                  <td>{{ row.crNo || '-' }}</td>
+                  <td>{{ row.partyName || '-' }}</td>
+                  <td>{{ row.thickness || '-' }}</td>
+                  <td>{{ row.totalQty ?? '-' }}</td>
+                  <td>{{ row.totalSQM ?? '-' }}</td>
+                  <td>{{ row.status || '-' }}</td>
+                  <td>{{ row.bPlant || '-' }}</td>
+                  <td>{{ row.process || '-' }}</td>
+                  <td>{{ formatDate(row.rbd) }}</td>
+                  <td>{{ formatDate(row.rtd) }}</td>
+                  <td>{{ formatDate(row.deliveryDate) }}</td>
+                </tr>
+              }
+            } @else {
+              <tr class="no-data-row">
+                <td colspan="12">{{ isLoading ? 'Loading...' : responseMessage }}</td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>

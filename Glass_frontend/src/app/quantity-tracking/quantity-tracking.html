@@ -1,0 +1,97 @@
+<div class="qt-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="qt-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+        <button class="btn-plant">{{ branchName }}</button>
+      </div>
+    </header>
+
+    <section class="qt-page">
+      <div class="qt-titlebar">
+        <h1>Quantity Tracker</h1>
+      </div>
+
+      <div class="qt-filters">
+        <label class="field">
+          <span>Entry Code:</span>
+          <input type="text" placeholder="Entry Code" />
+        </label>
+
+        <label class="field">
+          <span>BPlant:</span>
+          <select>
+            <option value="">--Select--</option>
+            <option>Thane</option>
+            <option>Taloja</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Status:</span>
+          <select>
+            <option value="">--Select--</option>
+            <option>Open</option>
+            <option>In Progress</option>
+            <option>Closed</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>From Date:</span>
+          <div class="date-input" (click)="openDatePicker(fromDateInput)">
+            <input #fromDateInput type="date" />
+          </div>
+        </label>
+
+        <label class="field">
+          <span>Till Date:</span>
+          <div class="date-input" (click)="openDatePicker(tillDateInput)">
+            <input #tillDateInput type="date" />
+          </div>
+        </label>
+
+        <div class="field action-cell">
+          <span>&nbsp;</span>
+          <button class="btn btn-fetch">Get Details</button>
+        </div>
+      </div>
+
+      <div class="qt-grid-wrap">
+        <table class="qt-grid">
+          <thead>
+            <tr>
+              <th>Entry Code</th>
+              <th>BPlant</th>
+              <th>Status</th>
+              <th>Created On</th>
+              <th>Updated On</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows; track row.entryCode) {
+              <tr>
+                <td>{{ row.entryCode }}</td>
+                <td>{{ row.bPlant }}</td>
+                <td>{{ row.status }}</td>
+                <td>{{ row.createdOn }}</td>
+                <td>{{ row.updatedOn }}</td>
+                <td>{{ row.qty }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

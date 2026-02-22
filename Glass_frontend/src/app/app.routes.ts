@@ -14,11 +14,16 @@ import { TopFive } from './top-five/top-five';
 import { BatchList } from './batch-list/batch-list';
 import { WtrReport } from './wtr-report/wtr-report';
 import { SalesReport } from './sales-report/sales-report';
+import { QuantityTracking } from './quantity-tracking/quantity-tracking';
+import { DispatchReport } from './dispatch-report/dispatch-report';
+import { ReplacementCardReport } from './replacement-card-report/replacement-card-report';
+import { UploadFile } from './upload-file/upload-file';
 
 export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'dashboard', component: Dashboard },
+  { path: 'upload-file', component: UploadFile },
   { path: 'create-order', component: CreateOrder },
   { path: 'process-order', component: ProcessOrder },
   { path: 'rtd-list', component: RtdList },
@@ -28,6 +33,9 @@ export const routes: Routes = [
   { path: 'reports/top-five', component: TopFive },
   { path: 'reports/wtr', component: WtrReport },
   { path: 'reports/batch-list', component: BatchList },
+  { path: 'reports/quantity-tracking', component: QuantityTracking },
+  { path: 'reports/dispatch-report', component: DispatchReport },
+  { path: 'reports/replacement-card', component: ReplacementCardReport },
   { path: 'reports/sales-report', component: SalesReport },
   { path: 'delivered-report', component: DeliveredReport },
   { path: 'work-center/:id', component: WorkCenter },

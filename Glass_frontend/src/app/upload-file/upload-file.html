@@ -1,0 +1,58 @@
+<div class="upload-shell" [class.light-theme]="!isDarkTheme">
+  <app-sidebar [collapsed]="isSidebarCollapsed" [lightTheme]="!isDarkTheme"></app-sidebar>
+
+  <main class="upload-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <header class="page-topbar">
+      <div class="page-topbar-controls">
+        <button class="icon-button btn-sidebar-toggle" (click)="toggleSidebar()">
+          <lucide-icon [name]="isSidebarCollapsed ? 'chevrons-right' : 'chevrons-left'" size="18"></lucide-icon>
+        </button>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button btn-theme-toggle" (click)="toggleTheme()">
+          <lucide-icon [name]="isDarkTheme ? 'sun' : 'moon'" size="18"></lucide-icon>
+        </button>
+        <button class="btn-plant">{{ branchName }}</button>
+      </div>
+    </header>
+
+    <section class="upload-page">
+      <div class="notice-card">
+        <div class="notice-copy">
+          <p class="notice-title">
+            <lucide-icon name="triangle-alert" size="16"></lucide-icon>
+            Important
+          </p>
+          <p>Please review <strong>Lamination entries</strong> before uploading Excel data.</p>
+        </div>
+        <button class="btn btn-lamination" (click)="goToLamination()">Go to Lamination</button>
+      </div>
+
+      <div class="upload-card">
+        <h1>Excel Upload</h1>
+        <p class="upload-subtitle">Upload planning or dispatch sheets for quick processing.</p>
+
+        <div class="upload-row">
+          <input
+            #fileInput
+            class="hidden-file-input"
+            type="file"
+            accept=".xls,.xlsx,.csv"
+            (change)="onFileChange($event)"
+          />
+          <button class="btn btn-choose" (click)="chooseFile(fileInput)">
+            <lucide-icon name="file-up" size="16"></lucide-icon>
+            Choose File
+          </button>
+          <div class="file-preview">
+            <p class="file-name">{{ selectedFileName() }}</p>
+            <p class="file-meta">{{ selectedFileMeta() }}</p>
+          </div>
+          <button class="btn btn-upload" [disabled]="!hasFile()" (click)="uploadFile()">Upload</button>
+        </div>
+
+        <p class="upload-message">{{ uploadMessage() }}</p>
+      </div>
+    </section>
+  </main>
+</div>
