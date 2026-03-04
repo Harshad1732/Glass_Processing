@@ -1,6 +1,0 @@
-@Glass.Api_HostAddress = http://localhost:5156
-
-GET {{Glass.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

@@ -40,11 +40,13 @@ export class SalesReport {
   private readonly cdr = inject(ChangeDetectorRef);
 
   crNo = '';
-  partyName = '';
+  partyId = '';
+
   rows: SalesReportRow[] = [];
   isLoading = false;
   responseMessage = 'No data';
-  private readonly apiBaseUrl = 'http://localhost:5156/api/salesreport';
+
+  private readonly apiBaseUrl = 'http://localhost:7058/api/salesreport';
 
   get isSidebarCollapsed() {
     return this.ui.isSidebarCollapsed();
@@ -85,9 +87,11 @@ export class SalesReport {
     }
 
     let params = new HttpParams();
+
     if (crNo) {
       params = params.set('crNo', crNo);
     }
+
     if (partyName) {
       params = params.set('partyName', partyName);
     }
@@ -125,6 +129,7 @@ export class SalesReport {
     }
 
     const date = new Date(dateValue);
+
     if (Number.isNaN(date.getTime())) {
       return '-';
     }
