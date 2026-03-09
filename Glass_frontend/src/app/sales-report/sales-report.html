@@ -43,13 +43,12 @@
         <label class="field">
           <span>Party Name:</span>
           <div class="select-wrap">
-            <input
-              type="text"
-              [value]="partyName"
-              (input)="onPartyNameInput($event)"
-              (keydown.enter)="onSearch()"
-              placeholder="Enter Party Name"
-            />
+            <select [value]="partyId" (change)="onPartyChange($event)">
+              <option value="">Select Party</option>
+              @for (party of parties; track party.pid) {
+                <option [value]="party.pid">{{ party.partName }}</option>
+              }
+            </select>
             <lucide-icon name="chevron-down" size="16"></lucide-icon>
           </div>
         </label>
